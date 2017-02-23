@@ -9,10 +9,9 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { MaterialModule } from '@angular/material';
-import { FlexLayoutModule } from '@angular/flex-layout';
+import { ContentModule } from './content/content.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { LoginComponent } from './login/login.component';
-import { SignupComponent } from './signup/signup.component';
 import { NavComponent } from './nav/nav.component';
 import { HeadComponent } from './head/head.component';
 import { FootComponent } from './foot/foot.component';
@@ -25,8 +24,6 @@ AppModule = __decorate([
     NgModule({
         declarations: [
             AppComponent,
-            LoginComponent,
-            SignupComponent,
             NavComponent,
             HeadComponent,
             FootComponent
@@ -36,7 +33,8 @@ AppModule = __decorate([
             FormsModule,
             HttpModule,
             MaterialModule.forRoot(),
-            FlexLayoutModule.forRoot()
+            ContentModule,
+            AppRoutingModule
         ],
         providers: [],
         bootstrap: [AppComponent]

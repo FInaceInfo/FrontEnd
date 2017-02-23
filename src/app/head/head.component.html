@@ -1,2 +1,23 @@
-<h1>欢迎来到xxx</h1>
-<h2>xxx 一个神奇的地方</h2>
+<div class="head">
+    <div>
+        <button md-icon-button [mdMenuTriggerFor]="menu">
+        <md-icon>menu</md-icon>
+    </button>
+        <md-menu #menu="mdMenu">
+            <button md-menu-item><md-icon>home</md-icon>Home</button>
+            <button md-menu-item><md-icon>face</md-icon> Log-in </button>
+            <button md-menu-item><md-icon>face</md-icon> Signup </button>
+            <button md-menu-item><md-icon>help</md-icon> Help </button>
+        </md-menu>
+        <a md-button routerLink="."><h2>Finance Info</h2></a>
+    </div>
+    <div>
+        <form >
+            <a md-raised-button routerLink=".">downloads</a>
+            <md-input-container>
+                <input md-input placeholder="search">
+            </md-input-container>
+            <button type="submit" md-button><md-icon>search</md-icon></button>
+        </form>
+    </div>
+</div>
