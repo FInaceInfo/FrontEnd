@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: '/content/waiting',
+    redirectTo: 'content/boxoffice/cn/realtime',
     pathMatch: 'full'
   }
 ];

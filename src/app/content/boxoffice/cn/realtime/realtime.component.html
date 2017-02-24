@@ -1,0 +1,16 @@
+<div class="content">
+    <h3>即时票房信息</h3>
+    <div class="process" >
+        <md-progress-circle class="example-margin" color="primary" mode="indeterminate" value=50>
+        </md-progress-circle>
+    </div>
+    <table>
+        <tr>
+            <th *ngFor="let i of head">{{ i }}</th>
+        </tr>
+        <tr *ngFor="let j of lines">
+            <td *ngFor="let k of j.slice(0,-1)">{{ k }}</td>
+        </tr>
+    </table>
+    <button md-mini-fab (click)="query()"><md-icon>check</md-icon></button>
+</div>

@@ -7,8 +7,11 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 import { NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
 import { WaitingComponent } from './waiting/waiting.component';
+import { CnRealTimeComponent } from './boxoffice/cn/realtime/realtime.component';
 var contentRoutes = [
-    { path: 'content/waiting', component: WaitingComponent }
+    { path: 'content/waiting', component: WaitingComponent },
+    { path: 'content/boxoffice', redirectTo: 'content/boxoffice/cn/realtime', pathMatch: 'full' },
+    { path: 'content/boxoffice/cn/realtime', component: CnRealTimeComponent }
 ];
 var ContentRoutingModule = (function () {
     function ContentRoutingModule() {
