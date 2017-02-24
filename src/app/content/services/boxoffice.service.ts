@@ -18,13 +18,13 @@ export class BoxOfficeService {
     private error(error: string) {
         console.log(`ERROR: "${error}" (${this.url})`)
     }
-    get_realtime_boxoffice() {
+    get_boxoffice(api:string) {
         let observable = new Observable(observer => {
             this.socket = io(this.url);
             this.socket.on("connect", () => this.connect())
             this.socket.on("disconnect", () => this.disconnect())
             this.socket.on("error", (error: string) => this.error(error))
-            this.socket.on('cn_box_office_realtime', (data) => {
+            this.socket.on(api, (data) => {
                 observer.next(data)
             })
             return () => {
@@ -35,5 +35,14 @@ export class BoxOfficeService {
     }
     query_realtime_boxoffice() {
         this.socket.emit('cn_box_office_realtime', { 'query': "ok" })
+    }
+    query_day_boxoffice(query="ok") {
+        this.socket.emit('cn_box_office_day', { 'query': query })
+    }
+    query_month_boxoffice(query="ok") {
+        this.socket.emit('cn_box_office_month', { 'query': query })
+    }
+    query_day_cinema(query="ok") {
+        this.socket.emit('cn_day_cinema', { 'query': query })
     }
 }

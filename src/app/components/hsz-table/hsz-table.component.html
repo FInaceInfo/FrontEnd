@@ -1,0 +1,11 @@
+<table [style]="style">
+    <caption [style]="titlestyle">
+        {{ title }}
+    </caption>
+    <tr>
+        <th *ngFor="let i of head">{{ i }}</th>
+    </tr>
+    <tr *ngFor="let j of lines">
+        <td *ngFor="let k of j">{{ k }}</td>
+    </tr>
+</table>

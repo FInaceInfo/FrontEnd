@@ -28,9 +28,9 @@ export class CnRealTimeComponent implements OnInit {
         this.queryed = true
       }
     ngOnInit() {
-        this.connection = this.service.get_realtime_boxoffice().subscribe(message => {
+        this.connection = this.service.get_boxoffice("cn_box_office_realtime").subscribe(message => {
             this.head = message["head"].slice(0,-1)
-            this.lines = message["body"]
+            this.lines = message["body"].map((line)=>line.slice(0,-1))
             console.log(message)
             let process= document.querySelector(".content .process")
             let table= document.querySelector(".content table")

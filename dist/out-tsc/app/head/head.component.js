@@ -7,25 +7,28 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-import { Component, Renderer } from '@angular/core';
+import { Component, Output, Input, Renderer, EventEmitter } from '@angular/core';
 var HeadComponent = (function () {
     function HeadComponent(render) {
         this.render = render;
+        this.change = new EventEmitter();
     }
+    HeadComponent.prototype.group_value_change = function (event) {
+        this.groupvalue = event.value;
+        this.change.emit({ "value": this.groupvalue });
+    };
     HeadComponent.prototype.ngOnInit = function () {
-        var value = document.querySelector(".head .example-selected-value").innerHTML;
-        console.log(value);
-        var chiose = document.querySelectorAll(".nav .chiose");
-        var boxoffice = document.querySelectorAll(".nav .box-office");
-        for (var i = 0; i < chiose.length; i++) {
-            this.render.setElementStyle(boxoffice[i], 'display', 'none');
-        }
-        for (var i = 0; i < boxoffice.length; i++) {
-            this.render.setElementStyle(boxoffice[i], 'display', 'block');
-        }
     };
     return HeadComponent;
 }());
+__decorate([
+    Input(),
+    __metadata("design:type", String)
+], HeadComponent.prototype, "groupvalue", void 0);
+__decorate([
+    Output(),
+    __metadata("design:type", EventEmitter)
+], HeadComponent.prototype, "change", void 0);
 HeadComponent = __decorate([
     Component({
         selector: 'app-head',

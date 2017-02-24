@@ -6,5 +6,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'app works!';
+  choosed: string = 'box-office'
+
+  choosedChange(event){
+      console.log(event)
+      this.choosed=event.value
+  }
 }

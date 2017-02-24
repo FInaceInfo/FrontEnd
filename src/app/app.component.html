@@ -1,4 +1,5 @@
-<app-head></app-head>
-<app-nav></app-nav>
+<app-head [groupvalue]="choosed" (change)="choosedChange($event)">
+</app-head>
+<app-nav [choosed]="choosed"></app-nav>
 <router-outlet></router-outlet>
 <app-foot></app-foot>

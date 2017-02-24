@@ -26,9 +26,9 @@ var CnRealTimeComponent = (function () {
     };
     CnRealTimeComponent.prototype.ngOnInit = function () {
         var _this = this;
-        this.connection = this.service.get_realtime_boxoffice().subscribe(function (message) {
+        this.connection = this.service.get_boxoffice("cn_box_office_realtime").subscribe(function (message) {
             _this.head = message["head"].slice(0, -1);
-            _this.lines = message["body"];
+            _this.lines = message["body"].map(function (line) { return line.slice(0, -1); });
             console.log(message);
             var process = document.querySelector(".content .process");
             var table = document.querySelector(".content table");

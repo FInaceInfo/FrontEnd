@@ -12,18 +12,17 @@
         <a md-button routerLink="."><h2>Finance Info</h2></a>
     </div>
     <div>
-        <md-button-toggle-group #group="mdButtonToggleGroup">
+        <md-button-toggle-group
+        #group="mdButtonToggleGroup"
+        [value]="groupvalue"
+        (change)="group_value_change($event)">
           <md-button-toggle value="stock" routerLink="content/waiting">
             股票数据
           </md-button-toggle>
           <md-button-toggle value="box-office" routerLink="content/boxoffice">
             电影票房数据
           </md-button-toggle>
-          <md-button-toggle value="download">
-            downloads
-          </md-button-toggle>
         </md-button-toggle-group>
-        <div class="example-selected-value">{{group.value || "box-office"}}</div>
     </div>
     <div>
         <form >

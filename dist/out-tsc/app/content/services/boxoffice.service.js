@@ -23,14 +23,14 @@ var BoxOfficeService = (function () {
     BoxOfficeService.prototype.error = function (error) {
         console.log("ERROR: \"" + error + "\" (" + this.url + ")");
     };
-    BoxOfficeService.prototype.get_realtime_boxoffice = function () {
+    BoxOfficeService.prototype.get_boxoffice = function (api) {
         var _this = this;
         var observable = new Observable(function (observer) {
             _this.socket = io(_this.url);
             _this.socket.on("connect", function () { return _this.connect(); });
             _this.socket.on("disconnect", function () { return _this.disconnect(); });
             _this.socket.on("error", function (error) { return _this.error(error); });
-            _this.socket.on('cn_box_office_realtime', function (data) {
+            _this.socket.on(api, function (data) {
                 observer.next(data);
             });
             return function () {
@@ -41,6 +41,18 @@ var BoxOfficeService = (function () {
     };
     BoxOfficeService.prototype.query_realtime_boxoffice = function () {
         this.socket.emit('cn_box_office_realtime', { 'query': "ok" });
+    };
+    BoxOfficeService.prototype.query_day_boxoffice = function (query) {
+        if (query === void 0) { query = "ok"; }
+        this.socket.emit('cn_box_office_day', { 'query': query });
+    };
+    BoxOfficeService.prototype.query_month_boxoffice = function (query) {
+        if (query === void 0) { query = "ok"; }
+        this.socket.emit('cn_box_office_month', { 'query': query });
+    };
+    BoxOfficeService.prototype.query_day_cinema = function (query) {
+        if (query === void 0) { query = "ok"; }
+        this.socket.emit('cn_day_cinema', { 'query': query });
     };
     return BoxOfficeService;
 }());

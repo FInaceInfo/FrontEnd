@@ -1,0 +1,16 @@
+@media screen and (max-height: 800px) {
+    .content {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content:center;
+        align-items: center;
+        height: 450px;
+    }
+}
+.content .process{
+    display:block;
+}
+.content table{
+    font-size:10px;
+}
