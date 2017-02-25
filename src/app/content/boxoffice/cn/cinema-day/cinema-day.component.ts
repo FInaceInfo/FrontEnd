@@ -190,6 +190,10 @@ export class CnCinemaDayComponent implements OnInit {
             this.render.setElementStyle(process, 'display', 'none')
 
         })
+        if (this.queryed === false) {
+            let process = document.querySelector(".content .process")
+            this.render.setElementStyle(process, 'display', 'none')
+        }
         // if (this.queryed === false) {
         //     this.service.query_day_cinema("2016-11-11")
         //     let search = document.querySelector(".content .query")

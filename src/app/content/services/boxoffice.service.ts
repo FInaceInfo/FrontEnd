@@ -6,7 +6,7 @@ import *  as io from 'socket.io-client'
 
 @Injectable()
 export class BoxOfficeService {
-    private url: string = 'ws://139.199.162.210:5000/boxoffice'//'https://monkeyspace.space/ws/boxoffice/boxoffice'//'ws://localhost:5000/boxoffice'
+    private url: string = 'ws://localhost:5000/boxoffice'//'ws://139.199.162.210:5000/boxoffice'//
     private socket: SocketIOClient.Socket
     constructor() { }
     private connect() {
