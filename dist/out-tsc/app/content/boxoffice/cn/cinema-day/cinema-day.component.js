@@ -86,7 +86,7 @@ var CnCinemaDayComponent = (function () {
             console.log("query_day_cinema");
         }
         var process = document.querySelector(".content .process");
-        var table = document.querySelector(".content table");
+        var table = document.querySelector("#chart1");
         var search = document.querySelector(".content .query");
         this.render.setElementStyle(process, 'display', 'block');
         this.render.setElementStyle(table, 'display', 'none');
@@ -104,7 +104,75 @@ var CnCinemaDayComponent = (function () {
                 _this.head = message["head"];
                 _this.lines = message["body"].slice(0, 10);
                 console.log(message);
-                var table = document.querySelector(".content table");
+                var beijing = message["body"]
+                    .filter(function (line) { return line[3].indexOf("北京") >= 0; })
+                    .map(function (line) { return parseFloat(line[6]); })
+                    .reduce(function (x, y) { return x + y; }).toFixed(2);
+                var shanghai = message["body"]
+                    .filter(function (line) { return line[3].indexOf("上海") >= 0; })
+                    .map(function (line) { return parseFloat(line[6]); })
+                    .reduce(function (x, y) { return x + y; }).toFixed(2);
+                var guangzhou = message["body"]
+                    .filter(function (line) { return line[3].indexOf("广州") >= 0; })
+                    .map(function (line) { return parseFloat(line[6]); })
+                    .reduce(function (x, y) { return x + y; }).toFixed(2);
+                var shenzhen = message["body"]
+                    .filter(function (line) { return line[3].indexOf("深圳") >= 0; })
+                    .map(function (line) { return parseFloat(line[6]); })
+                    .reduce(function (x, y) { return x + y; }).toFixed(2);
+                var other = message["body"]
+                    .filter(function (line) {
+                    return line[3].indexOf("深圳") < 0 &&
+                        line[3].indexOf("广州") < 0 &&
+                        line[3].indexOf("上海") < 0 &&
+                        line[3].indexOf("北京") < 0;
+                })
+                    .map(function (line) { return parseFloat(line[6]); })
+                    .reduce(function (x, y) { return x + y; }).toFixed(2);
+                _this.charts_option = {
+                    title: {
+                        text: '各地票房贡献度',
+                        x: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        x: 'center',
+                        y: 'bottom',
+                        data: ['北京', '上海', '广州', '深圳', '其他']
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            mark: { show: true },
+                            dataView: { show: true, readOnly: false },
+                            magicType: {
+                                show: true,
+                                type: ['pie', 'funnel']
+                            },
+                            restore: { show: true },
+                            saveAsImage: { show: true }
+                        }
+                    },
+                    calculable: true,
+                    series: [
+                        {
+                            name: '位置',
+                            type: 'pie',
+                            radius: '55%',
+                            data: [
+                                { value: beijing, name: '北京' },
+                                { value: shanghai, name: '上海' },
+                                { value: guangzhou, name: '广州' },
+                                { value: shenzhen, name: '深圳' },
+                                { value: other, name: '其他' }
+                            ]
+                        }
+                    ]
+                };
+                var table = document.querySelector("#chart1");
                 _this.render.setElementStyle(table, 'display', 'block');
                 var search = document.querySelector(".content .query");
                 _this.render.setElementStyle(search, 'display', 'block');
@@ -112,12 +180,6 @@ var CnCinemaDayComponent = (function () {
             var process = document.querySelector(".content .process");
             _this.render.setElementStyle(process, 'display', 'none');
         });
-        if (this.queryed === false) {
-            this.service.query_day_cinema("2017-1-1");
-            var search = document.querySelector(".content .query");
-            this.render.setElementStyle(search, 'display', 'none');
-            console.log("query_day_cinema");
-        }
     };
     CnCinemaDayComponent.prototype.ngOnDestroy = function () {
         this.connection.unsubscribe();

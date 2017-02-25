@@ -18,6 +18,7 @@ export class CnCinemaDayComponent implements OnInit {
     queryed: boolean = false
     selectedyear: string
     today: Object
+    charts_option: Object
     years = [
         { value: '2017', viewValue: '2017' },
         { value: '2016', viewValue: '2016' },
@@ -77,14 +78,14 @@ export class CnCinemaDayComponent implements OnInit {
         let now = new Date()
         this.today = {
             "year": now.getFullYear(),
-            "month": now.getMonth()+1,
+            "month": now.getMonth() + 1,
             "day": now.getDate()
         }
         console.log(this.today)
     }
     query() {
         if (this.selectedyear && this.selectedmonth && this.selectedday) {
-            let query = this.selectedyear + "-" + this.selectedmonth+ '-' + this.selectedday
+            let query = this.selectedyear + "-" + this.selectedmonth + '-' + this.selectedday
             console.log(query)
             this.service.query_day_cinema(query)
             console.log("query_day_cinema")
@@ -93,7 +94,8 @@ export class CnCinemaDayComponent implements OnInit {
             console.log("query_day_cinema")
         }
         let process = document.querySelector(".content .process")
-        let table = document.querySelector(".content table")
+        // let table = document.querySelector(".content table")
+        let table = document.querySelector("#chart1")
         let search = document.querySelector(".content .query")
         this.render.setElementStyle(process, 'display', 'block')
         this.render.setElementStyle(table, 'display', 'none')
@@ -103,13 +105,83 @@ export class CnCinemaDayComponent implements OnInit {
     ngOnInit() {
         this.connection = this.service.get_boxoffice("cn_day_cinema").subscribe(message => {
             console.log(message)
-            if (message["error"]){
-                this.errormsg=message["message"]
-            }else{
+            if (message["error"]) {
+                this.errormsg = message["message"]
+            } else {
                 this.head = message["head"]
-                this.lines = message["body"].slice(0,10)
+                this.lines = message["body"].slice(0, 10)
                 console.log(message)
-                let table = document.querySelector(".content table")
+                let beijing = message["body"]
+                    .filter((line) => line[3].indexOf("北京") >= 0)
+                    .map((line) => parseFloat(line[6]))
+                    .reduce((x, y) => x + y).toFixed(2)
+                let shanghai = message["body"]
+                    .filter((line) => line[3].indexOf("上海") >= 0)
+                    .map((line) => parseFloat(line[6]))
+                    .reduce((x, y) => x + y).toFixed(2)
+                let guangzhou = message["body"]
+                    .filter((line) => line[3].indexOf("广州") >= 0)
+                    .map((line) => parseFloat(line[6]))
+                    .reduce((x, y) => x + y).toFixed(2)
+                let shenzhen = message["body"]
+                    .filter((line) => line[3].indexOf("深圳") >= 0)
+                    .map((line) => parseFloat(line[6]))
+                    .reduce((x, y) => x + y).toFixed(2)
+                let other = message["body"]
+                    .filter((line) => {
+                        return line[3].indexOf("深圳") < 0 &&
+                            line[3].indexOf("广州") < 0 &&
+                            line[3].indexOf("上海") < 0 &&
+                            line[3].indexOf("北京") < 0
+                    })
+                    .map((line) => parseFloat(line[6]))
+                    .reduce((x, y) => x + y).toFixed(2)
+
+                this.charts_option = {
+                    title: {
+                        text: '各地票房贡献度',
+                        x: 'center'
+                    },
+                    tooltip: {
+                        trigger: 'item',
+                        formatter: "{a} <br/>{b} : {c} ({d}%)"
+                    },
+                    legend: {
+                        x: 'center',
+                        y: 'bottom',
+                        data: ['北京', '上海', '广州', '深圳', '其他']
+                    },
+                    toolbox: {
+                        show: true,
+                        feature: {
+                            mark: { show: true },
+                            dataView: { show: true, readOnly: false },
+                            magicType: {
+                                show: true,
+                                type: ['pie', 'funnel']
+                            },
+                            restore: { show: true },
+                            saveAsImage: { show: true }
+                        }
+                    },
+                    calculable: true,
+                    series: [
+                        {
+                            name: '位置',
+                            type: 'pie',
+                            radius: '55%',
+                            data: [
+                                { value: beijing, name: '北京' },
+                                { value: shanghai, name: '上海' },
+                                { value: guangzhou, name: '广州' },
+                                { value: shenzhen, name: '深圳' },
+                                { value: other, name: '其他' }
+                            ]
+                        }
+                    ]
+                }
+                // let table = document.querySelector(".content table")
+                let table = document.querySelector("#chart1")
                 this.render.setElementStyle(table, 'display', 'block')
                 let search = document.querySelector(".content .query")
                 this.render.setElementStyle(search, 'display', 'block')
@@ -118,12 +190,12 @@ export class CnCinemaDayComponent implements OnInit {
             this.render.setElementStyle(process, 'display', 'none')
 
         })
-        if (this.queryed === false) {
-            this.service.query_day_cinema("2017-1-1")
-            let search = document.querySelector(".content .query")
-            this.render.setElementStyle(search, 'display', 'none')
-            console.log("query_day_cinema")
-        }
+        // if (this.queryed === false) {
+        //     this.service.query_day_cinema("2016-11-11")
+        //     let search = document.querySelector(".content .query")
+        //     this.render.setElementStyle(search, 'display', 'none')
+        //     console.log("query_day_cinema")
+        // }
     }
     ngOnDestroy() {
         this.connection.unsubscribe()

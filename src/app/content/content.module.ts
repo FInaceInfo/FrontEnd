@@ -14,6 +14,7 @@ import { CnCinemaDayComponent } from './boxoffice/cn/cinema-day/cinema-day.compo
 import { ContentRoutingModule } from './content-routing.module'
 
 import {HSZTableComponent} from '../components/hsz-table/hsz-table.component'
+import {echartsDirective} from '../components/ts-echarts/ts-echart.directive'
 
 @NgModule({
     imports: [
@@ -26,6 +27,7 @@ import {HSZTableComponent} from '../components/hsz-table/hsz-table.component'
         WaitingComponent,
         CnRealTimeComponent,
         HSZTableComponent,
+        echartsDirective,
         CnMonthComponent,
         CnDayComponent,
         CnCinemaDayComponent

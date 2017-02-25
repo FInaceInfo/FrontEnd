@@ -7,7 +7,9 @@
     <div class="errormsg">
         {{ errormsg }}
     </div>
-    <hsz-table [lines]="lines" [head]="head"></hsz-table>
+    <div id="chart1" [ts-chart]="charts_option" style="width: 600px;height:400px;">
+
+    </div>
 
     <form class="query">
         <md-select placeholder="年" [(ngModel)]="selectedyear" name="year">

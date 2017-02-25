@@ -12,7 +12,7 @@ import { Observable } from 'rxjs/Observable';
 import * as io from 'socket.io-client';
 var BoxOfficeService = (function () {
     function BoxOfficeService() {
-        this.url = 'ws://localhost:5000/boxoffice';
+        this.url = 'ws://139.199.162.210:5000/boxoffice';
     }
     BoxOfficeService.prototype.connect = function () {
         console.log("Connected to \"" + this.url + "\"");
