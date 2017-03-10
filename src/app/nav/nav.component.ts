@@ -17,19 +17,19 @@ export class NavComponent implements OnChanges {
     ngOnChanges(changes: SimpleChanges) {
         console.log(changes)
         let choises = document.querySelectorAll(".nav .choise")
-        let stocks = document.querySelectorAll(".nav .stock")
+        let news = document.querySelectorAll(".nav .news")
         let boxoffice = document.querySelectorAll(".nav .box-office")
 
         let value = changes['choosed']['currentValue']
         switch (value){
-            case "stock":{
+            case "news":{
                 for(let i=0;i<choises.length;i++){
                     this.renderer.setElementStyle(choises[i],"display","none")
                 }
-                for(let i=0;i<stocks.length;i++){
-                    this.renderer.setElementStyle(stocks[i],"display","block")
+                for(let i=0;i<news.length;i++){
+                    this.renderer.setElementStyle(news[i],"display","block")
                 }
-                console.log("stock")
+                console.log("new")
             }
             break
             case "box-office":{

@@ -5,7 +5,7 @@ import { RouterModule, Routes } from '@angular/router';
 const appRoutes: Routes = [
   {
     path: '',
-    redirectTo: 'content/boxoffice/cn/realtime',
+    redirectTo: 'content/news/last-news',
     pathMatch: 'full'
   }
 ];

@@ -1,0 +1,27 @@
+<div class="content">
+    <h3>最新新闻</h3>
+    <div class="process">
+        <md-progress-circle class="example-margin" color="primary" mode="indeterminate" value=50>
+        </md-progress-circle>
+    </div>
+    <div class="page">
+        <md-card class="card">
+      <md-card-header>
+        <md-card-title>{{ content[current_page]['title'] }}</md-card-title>
+        <md-card-subtitle>{{ content[current_page]['classify'] }} at {{ content[current_page]['time']}}</md-card-subtitle>
+      </md-card-header>
+      <md-card-content>
+        <p>
+          {{ content[current_page]['content'] }}
+        </p>
+      </md-card-content>
+    </md-card>
+    </div>
+    <div class="button-container">
+        <div class="button-row">
+            <button md-mini-fab [disabled]=" current_page===1 ? false:true"><md-icon>previous</md-icon> </button>
+            <div><p>{{ current_page }}/{{ pages }}</p><div>
+            <button md-mini-fab><md-icon>next</md-icon></button>
+        </div>
+    </div>
+</div>

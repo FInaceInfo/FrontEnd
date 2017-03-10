@@ -1,0 +1,33 @@
+<div class="content">
+    <h3>日影院票房信息</h3>
+    <div class="process">
+        <md-progress-circle class="example-margin" color="primary" mode="indeterminate" value=50>
+        </md-progress-circle>
+    </div>
+    <div class="errormsg">
+        {{ errormsg }}
+    </div>
+    <div id="chart1" [ts-chart]="charts_option" style="width: 600px;height:400px;">
+
+    </div>
+
+    <form class="query">
+        <md-select placeholder="年" [(ngModel)]="selectedyear" name="year">
+            <md-option *ngFor="let year of years" [value]="year.value">
+                {{year.viewValue}}
+            </md-option>
+        </md-select>
+        <md-select placeholder="月" [(ngModel)]="selectedmonth" name="month">
+            <md-option *ngFor="let month of (selectedyear == today.year.toString() ? (today.day == '1' ? months.slice(0,today.month-1):months.slice(0,today.month)) :months)" [value]="month.value">
+                {{month.viewValue}}
+            </md-option>
+        </md-select>
+        <md-select placeholder="日" [(ngModel)]="selectedday" name="day">
+            <md-option *ngFor="let day of ((selectedyear == today.year.toString() && selectedmonth == today.month.toString()) ? days.slice(0,today.day) :(['4','6','9','11'].indexOf(selectedmonth) >= 0 ? days.slice(0,-1):(selectedmonth=='2' ? days.slice(0,-3):days)))" [value]="day.value">
+                {{day.viewValue}}
+            </md-option>
+        </md-select>
+        <button md-mini-fab  (click)="query()"><md-icon>search</md-icon></button>
+    </form>
+
+</div>

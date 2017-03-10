@@ -1,0 +1,25 @@
+@media screen and (max-height: 800px) {
+    .content {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        justify-content:center;
+        align-items: center;
+        height: 450px;
+    }
+}
+.content .process{
+    display:block;
+}
+.content .card {
+  width: 400px;
+}
+
+.content .button-container {
+  width: 400px;
+}
+.content .button-container .button-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
